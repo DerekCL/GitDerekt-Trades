@@ -18,5 +18,5 @@ jobs:
           curl -X POST \
                -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -H "Accept: application/vnd.github.everest-preview+json" \
-               https://api.github.com/repos/USERNAME/REPO_NAME/dispatches \
+               https://api.github.com/repos/DerekCL/GitDerekt-Trades/dispatches \
                -d '{"event_type": "deploy-bot"}'

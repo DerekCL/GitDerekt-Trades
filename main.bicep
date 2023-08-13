@@ -1,4 +1,5 @@
 param location string = resourceGroup().location
+param discordBotToken string // You can pass this as a parameter during deployment
 
 resource functionApp 'Microsoft.Web/sites@2020-06-01' = {
   name: 'GitDerektTradesFunctionApp'
@@ -7,6 +8,14 @@ resource functionApp 'Microsoft.Web/sites@2020-06-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     clientAffinityEnabled: false
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'DISCORD_BOT_TOKEN'
+          value: discordBotToken
+        }
+      ]
+    }
   }
 }
 

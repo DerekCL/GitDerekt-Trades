@@ -1,4 +1,8 @@
 import * as Discord from "discord.js";
+
+// dotenv is a package that allows us to store sensitive information in a .env file
+require("dotenv").config();
+
 const client: Discord.Client = new Discord.Client({
   intents: [
     "Guilds",
@@ -21,6 +25,4 @@ client.on("message", (msg: Discord.Message) => {
   }
 });
 
-client.login(
-  "MTE0MDMyMDUwMDQzMDY4MDE1NQ.Gnc6ho.bRUqoCqaRHYxsQnG5Iy-F9TFun4EuuDSQImjXQ"
-);
+client.login(process.env.DISCORD_BOT_TOKEN);

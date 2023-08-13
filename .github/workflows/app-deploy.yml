@@ -1,0 +1,30 @@
+name: Deploy Bot
+
+on:
+  repository_dispatch:
+    types: [deploy-bot]
+
+env:
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+
+jobs:
+  deploy_bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Azure
+        run: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+
+      - name: Deploy to Function App
+        uses: azure/functions-action@v1
+        with:
+          app-name: GitDerektTradesFunctionApp
+          package: path/to/bot-code
+
+      - name: Log out of Azure
+        run: az logout

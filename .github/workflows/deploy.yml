@@ -1,50 +1,22 @@
-name: Deploy Infrastructure and Bot
+name: Deploy Default
 
 on:
   push:
     branches:
-      - main # Change this to your branch name
-
-env:
-  CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-  TENANT_ID: ${{ secrets.TENANT_ID }}
-  SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-  LOCATION: ${{ secrets.AZURE_LOCATION }} # Assuming you also store the location as a secret
+      - main
 
 jobs:
-  deploy_infrastructure:
+  trigger_app_deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Log in to Azure
-        run: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
-
-      - name: Deploy Bicep template
-        run: az deployment group create --resource-group YOUR_RESOURCE_GROUP_NAME --template-file path/to/your-bicep-file.bicep --parameters location=$LOCATION
-
-      - name: Log out of Azure
-        run: az logout
-
-  deploy_bot:
-    needs: deploy_infrastructure
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Log in to Azure
-        run: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
-
-      - name: Deploy to Function App
-        uses: azure/functions-action@v1
-        with:
-          app-name: GitDerektTradesFunctionApp
-          package: path/to/bot-code
-
-      - name: Log out of Azure
-        run: az logout
+      - name: Trigger Bot Deployment
+        run: |
+          curl -X POST \
+               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.everest-preview+json" \
+               https://api.github.com/repos/USERNAME/REPO_NAME/dispatches \
+               -d '{"event_type": "deploy-bot"}'

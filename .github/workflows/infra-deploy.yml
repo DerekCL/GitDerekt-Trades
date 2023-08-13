@@ -1,0 +1,24 @@
+name: Deploy Infrastructure
+
+env:
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TENANT_ID: ${{ secrets.TENANT_ID }}
+  LOCATION: ${{ secrets.AZURE_LOCATION }} # Assuming you also store the location as a secret
+
+jobs:
+  deploy_infrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Azure
+        run: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant $TENANT_ID
+
+      - name: Deploy Bicep template
+        run: az deployment group create --resource-group YOUR_RESOURCE_GROUP_NAME --template-file path/to/your-bicep-file.bicep --parameters location=$LOCATION
+
+      - name: Log out of Azure
+        run: az logout

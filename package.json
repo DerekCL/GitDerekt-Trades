@@ -1,0 +1,19 @@
+{
+  "name": "gitderekt-trades",
+  "version": "0.1.0",
+  "description": "GitDerekt Trades is a specialized Discord trading bot designed to empower investors. Integrating seamlessly with Discord channels, it offers real-time market insights, custom alerts, and streamlined trade execution. Tailored to novice and seasoned traders, GitDerekt Trades is a reliable companion for informed investment decisions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DerekCL/GitDerekt-Trades.git"
+  },
+  "author": "DerekCL",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/DerekCL/GitDerekt-Trades/issues"
+  },
+  "homepage": "https://github.com/DerekCL/GitDerekt-Trades#readme"
+}

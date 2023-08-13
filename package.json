@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/DerekCL/GitDerekt-Trades/issues"
   },
-  "homepage": "https://github.com/DerekCL/GitDerekt-Trades#readme"
+  "homepage": "https://github.com/DerekCL/GitDerekt-Trades#readme",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
 }
